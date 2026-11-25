@@ -6,22 +6,37 @@
 import { hamtaRattFranServer } from "./fordrojning";
 import { formateraPris } from "./pris";
 
-export function hamtaRattPris(id: number): Promise<number> {
-  return hamtaRattFranServer(id, 10).then((ratt) => ratt.pris);
+export async function hamtaRattPris(id: number): Promise<number> {
+  //return hamtaRattFranServer(id, 10).then((ratt) => ratt.pris); //Ekvivalent funktion, för jämförelse
+  const ratt = await hamtaRattFranServer(id, 10);
+  return ratt.pris;
 }
 
-export function hamtaRattPrisEllerNoll(id: number): Promise<number> {
-  return hamtaRattFranServer(id, 10)
+export async function hamtaRattPrisEllerNoll(id: number): Promise<number> {
+  /*return hamtaRattFranServer(id, 10)  //const ratt = await hamtaRattFranServer(id, 10);
+  return ratt.pris;
     .then((ratt) => ratt.pris)
-    .catch(() => 0);
+    .catch(() => 0);*/
+    try {
+      const ratt = await hamtaRattFranServer(id, 10);
+      return ratt.pris;
+    }
+    catch {
+      return 0;
+    }
 }
 
-export function hamtaOchFormatera(id: number): Promise<string> {
-  return hamtaRattFranServer(id, 10).then((ratt) => `${ratt.namn}: ${formateraPris(ratt.pris)}`);
+export async function hamtaOchFormatera(id: number): Promise<string> {
+  //return hamtaRattFranServer(id, 10).then((ratt) => `${ratt.namn}: ${formateraPris(ratt.pris)}`); //Ekvivalent funktion, för jämförelse
+   const ratt = await hamtaRattFranServer(id, 10);
+   return `${ratt.namn}: ${formateraPris(ratt.pris)}`;
 }
 
-export function hamtaTvaPriser(id1: number, id2: number): Promise<number> {
-  return hamtaRattFranServer(id1, 10).then((ratt1) =>
+export async function hamtaTvaPriser(id1: number, id2: number): Promise<number> {
+  /*return hamtaRattFranServer(id1, 10).then((ratt1) => //Ekvivalent funktion, för jämförelse
     hamtaRattFranServer(id2, 10).then((ratt2) => ratt1.pris + ratt2.pris)
-  );
+  );*/
+  const ratt1 = await hamtaRattFranServer(id1, 10);
+  const ratt2 = await hamtaRattFranServer(id2, 10);
+  return ratt1.pris + ratt2.pris;
 }
