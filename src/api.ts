@@ -59,7 +59,10 @@ export async function hamtaMedForsok<T>(anropFn: () => Promise<T>, maxForsok: nu
 // 7. Ge en promise en tidsgräns. Är den inte klar inom ms millisekunder: avvisa med
 //    new Error("Tidsgränsen överskreds"). Tips: Promise.race med en promise som avvisas efter ms.
 export function medTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  // TODO
+  const tidsGrans = new Promise<T>((_, reject) => {
+    setTimeout(() => reject(new Error("Tidsgränsen överskreds")), ms);
+  })
+  return Promise.race([promise, tidsGrans]);
 }
 
 // 8. Tillståndsmaskinen för att ladda något: laddar -> klar / tomt / fel.
