@@ -10,8 +10,8 @@ export async function hamtaMeny(): Promise<Ratt[]> {
 
 // 2. Hämta namnet på en rätt (hamtaRattFranServer(id, 10)). Okänt id: låt felet följa med (fånga det inte).
 export async function hamtaRattNamn(id: number): Promise<string> {
-  /*const ratt = await hamtaRattFranServer(id, 10);
-  return ratt.namn;*/
+  const ratt = await hamtaRattFranServer(id, 10);
+  return ratt.namn;
 }
 
 // 3. Som 2, men om något går fel returnerar funktionen null istället för att kasta fel (try/catch).
