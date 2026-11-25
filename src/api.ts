@@ -16,13 +16,13 @@ export async function hamtaRattNamn(id: number): Promise<string> {
 
 // 3. Som 2, men om något går fel returnerar funktionen null istället för att kasta fel (try/catch).
 export async function hamtaRattEllerNull(id: number): Promise<Ratt | null> {
-/*try {
+try {
   const ratt = await hamtaRattFranServer(id, 10);
   return ratt;
 }
 catch {
   return null;
-}*/
+}
 }
 
 // 4. Hämta två rätter EFTER varandra (await, sedan await). Returnerar [ratt1, ratt2]. ms är väntetiden per anrop.
